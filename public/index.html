@@ -1000,68 +1000,69 @@
 
 
 <!--Schedule a visit sections-->
-			<section class="light site-visit" id="site-visit">
-				<h3 class="section-heading text-center w-100">Schedule a Site Visit</h3>
-			
-				<div class="row row-cols-1 row-cols-md-2 align-content-center">
-					<div class="col justify-content-center align-content-center">
-						<div class="bd-img">
-							<picture>
-								<source
-									data-srcset="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/sv.webp"
-									type="image/webp">
-								<img data-sizes="auto" class="lazyload"
-									src="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/ip.png"
-									data-srcset="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/sv.jpg"
-									alt="">
-							</picture>
-						</div>
-					</div>
-			
-					<div class="col pt-5">
-						<div id="thankYouMessage" style="display: none;" class="alert alert-success">
-							<h4>Thank you for scheduling a site visit!</h4>
-						</div>
-						<div id="errorMessage" style="display: none;" class="alert alert-danger">
-							<h4>Submission Error</h4>
-							<p>There was a problem processing your request. Please try again later or contact us directly.</p>
-						</div>
-			
-						<form id="siteVisitForm" method="post" class="enq-form js-email-form">
-							<input name="form_name" type="hidden" value="Open Site Visit Form">
-							<input name="is_te" type="hidden" value="">
-			
-							<input id="uname" name="uname" required autocomplete="off" type="text" maxlength="60"
-								pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
-			
-							<input id="uemail" name="uemail" required autocomplete="off" type="email" maxlength="60"
-								class="form-control" placeholder="Email">
-			
-							<input id="umobile" name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$"
-								class="form-control" placeholder="Mobile Number">
-			
-							<div class="consent">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" checked required id="consentCheck-siteVisit">
-									<label class="form-check-label" for="consentCheck-siteVisit">
-										I Consent to The Processing of Provided Data According To 
-										<a href="privacy-policy.html" target="_blank">Privacy Policy | Terms & Conditions</a>. 
-										I Authorize Propertypistol Realty Private Limited and its representatives to Call, SMS,
-										Email or WhatsApp Me About Its Products and Offers. This Consent Overrides Any
-										Registration For DNC/NDNC.
-									</label>
-								</div>
-							</div>
-			
-							<div class="btn-wrapper">
-								<button type="submit" name="fenqbtn" id="enqPopupSubmit" class="btn btn-dark btn-cta" disabled>
-									Submit
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</section>
+<section class="light site-visit" id="site-visit">
+    <h3 class="section-heading text-center w-100">Schedule a Site Visit</h3>
+
+    <div class="row row-cols-1 row-cols-md-2 align-content-center">
+        <div class="col justify-content-center align-content-center">
+            <div class="bd-img">
+                <picture>
+                    <source
+                        data-srcset="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/sv.webp"
+                        type="image/webp">
+                    <img data-sizes="auto" class="lazyload"
+                        src="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/ip.png"
+                        data-srcset="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/sv.jpg"
+                        alt="">
+                </picture>
+            </div>
+        </div>
+
+        <div class="col pt-5">
+            <div id="thankYouMessage" style="display: none;" class="alert alert-success">
+                <h4>Thank you for scheduling a site visit!</h4>
+            </div>
+            <div id="errorMessage" style="display: none;" class="alert alert-danger">
+                <h4>Submission Error</h4>
+                <p>There was a problem processing your request. Please try again later or contact us directly.</p>
+            </div>
+
+            <form id="siteVisitForm" method="post" class="enq-form js-email-form">
+                <input name="form_name" type="hidden" value="Open Site Visit Form">
+                <input name="is_te" type="hidden" value="">
+
+                <input id="uname" name="uname" required autocomplete="off" type="text" maxlength="60"
+                    pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
+
+                <!-- Email is no longer required -->
+                <input id="uemail" name="uemail" autocomplete="off" type="email" maxlength="60"
+                    class="form-control" placeholder="Email">
+
+                <input id="umobile" name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$"
+                    class="form-control" placeholder="Mobile Number">
+
+                <div class="consent">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" checked required id="consentCheck-siteVisit">
+                        <label class="form-check-label" for="consentCheck-siteVisit">
+                            I Consent to The Processing of Provided Data According To 
+                            <a href="privacy-policy.html" target="_blank">Privacy Policy | Terms & Conditions</a>. 
+                            I Authorize Propertypistol Realty Private Limited and its representatives to Call, SMS,
+                            Email or WhatsApp Me About Its Products and Offers. This Consent Overrides Any
+                            Registration For DNC/NDNC.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="btn-wrapper">
+                    <button type="submit" name="fenqbtn" id="enqPopupSubmit" class="btn btn-dark btn-cta" disabled>
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
 			
 
 			
