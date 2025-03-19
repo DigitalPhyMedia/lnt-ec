@@ -52,7 +52,9 @@
 		integrity="sha256-pDrSUa13vOne5uuB/pSUdT2vNTXsq1i4vtm/xpqJX9w=" crossorigin="anonymous"></script>
 	<!-- <script defer src="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/js/app.js"></script> -->
 	<script src="./js/app.js"></script>
- 
+	<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+	<script src="./js/email.js"></script>
+
 	<!-- Styles -->
 	<style>
 		:root {
@@ -295,7 +297,6 @@
 				<input name="form_name" id="form-name" type="hidden" value="LP Open Form">
 				<input name="is_te" type="hidden" value="">
 				<input id="sidebarName" name="uname" required autocomplete="off" type="text" maxlength="60" pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
-				<input id="sidebarEmail" name="uemail" required autocomplete="off" type="email" maxlength="60" class="form-control" placeholder="Email">
 				<input id="sidebarMobile" name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$" class="form-control" placeholder="Mobile Number">
 				
 				<div class="consent">
@@ -312,79 +313,10 @@
 					<button type="submit" name="fenqbtn" id="sidebarEnqSubmit" class="btn btn-dark btn-cta">Submit</button>
 				</div>
 			</form>
-		
-			<div id="sidebarThankYouMessage" class="alert alert-success" style="display: none;">
-				<h4>Thank you for your enquiry!</h4>
-			</div>
-			<div id="sidebarErrorMessage" class="alert alert-danger" style="display: none;">
-				<h4>Submission Error</h4>
-				<p>There was a problem processing your request. Please try again later.</p>
-			</div>
+		 
 		</sidebar>
 		
-		<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-		<script>
-			(function() {
-				emailjs.init("xaUgbMOS5uDkHfqAC");
-			})();
-		
-			document.addEventListener('DOMContentLoaded', function() {
-				const sidebarForm = document.getElementById('sidebarEnqForm');
-				const sidebarSubmitBtn = document.getElementById('sidebarEnqSubmit');
-				const sidebarNameInput = document.getElementById('sidebarName');
-				const sidebarEmailInput = document.getElementById('sidebarEmail');
-				const sidebarMobileInput = document.getElementById('sidebarMobile');
-				const sidebarConsentCheck = document.getElementById('consentCheck-sidebar');
-				const sidebarThankYouMessage = document.getElementById('sidebarThankYouMessage');
-				const sidebarErrorMessage = document.getElementById('sidebarErrorMessage');
-		
-				function checkSidebarFormValidity() {
-					const nameValid = sidebarNameInput.value.trim() !== '' && /^[A-Za-z\s]+$/.test(sidebarNameInput.value);
-					const emailValid = sidebarEmailInput.value.trim() !== '' && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(sidebarEmailInput.value);
-					const mobileValid = sidebarMobileInput.value.trim() !== '' && /^\d{10}$/.test(sidebarMobileInput.value);
-					sidebarSubmitBtn.disabled = !(nameValid && emailValid && mobileValid && sidebarConsentCheck.checked);
-				}
-		
-				[sidebarNameInput, sidebarEmailInput, sidebarMobileInput, sidebarConsentCheck].forEach(input => {
-					input.addEventListener('input', checkSidebarFormValidity);
-				});
-		
-				checkSidebarFormValidity();
-		
-				sidebarForm.addEventListener('submit', function(event) {
-					event.preventDefault();
-		
-					sidebarSubmitBtn.disabled = true;
-					sidebarSubmitBtn.innerHTML = 'Submitting...';
-		
-					const name = sidebarNameInput.value;
-					const email = sidebarEmailInput.value;
-					const mobile = sidebarMobileInput.value;
-		
-					sidebarThankYouMessage.style.display = 'none';
-					sidebarErrorMessage.style.display = 'none';
-		
-					emailjs.send("service_8vamjmf", "template_zejs2ig", {
-						name: name,
-						email: email, 
-						mobile: mobile,
-						to_email: "lntprojectsbangalore@gmail.com"
-					}).then(
-						function(response) {
-							console.log("Email sent successfully", response);
-							sidebarThankYouMessage.style.display = 'block';
-							sidebarForm.style.display = 'none';
-						},
-						function(error) {
-							console.error("Email failed to send", error);
-							sidebarErrorMessage.style.display = 'block';
-							sidebarSubmitBtn.disabled = false;
-							sidebarSubmitBtn.innerHTML = 'Submit';
-						}
-					);
-				});
-			});
-		</script>
+		 
 		
 		<!-- Sidebar - E -->
 
@@ -1118,71 +1050,7 @@
 				</div>
 			</section>
 			
-			<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-			<script>
-				(function() {
-					emailjs.init("xaUgbMOS5uDkHfqAC"); // Consider moving this key to backend for security.
-				})();
-			
-				document.addEventListener('DOMContentLoaded', function() {
-					const form = document.getElementById('siteVisitForm');
-					const submitBtn = document.getElementById('enqPopupSubmit');
-					const nameInput = document.getElementById('uname');
-					const emailInput = document.getElementById('uemail');
-					const mobileInput = document.getElementById('umobile');
-					const consentCheck = document.getElementById('consentCheck-siteVisit');
-					const thankYouMessage = document.getElementById('thankYouMessage');
-					const errorMessage = document.getElementById('errorMessage');
-			
-					function checkFormValidity() {
-						const nameValid = nameInput.value.trim() !== '' && /^[A-Za-z\s]+$/.test(nameInput.value);
-						const emailValid = emailInput.value.trim() !== '' && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailInput.value);
-						const mobileValid = mobileInput.value.trim() !== '' && /^\d{10}$/.test(mobileInput.value);
-						submitBtn.disabled = !(nameValid && emailValid && mobileValid && consentCheck.checked);
-					}
-			
-					// Run validation when input changes
-					[nameInput, emailInput, mobileInput, consentCheck].forEach(input => {
-						input.addEventListener('input', checkFormValidity);
-					});
-			
-					// Ensure button is enabled or disabled on page load
-					checkFormValidity();
-			
-					form.addEventListener('submit', function(event) {
-						event.preventDefault();
-			
-						submitBtn.disabled = true;
-						submitBtn.innerHTML = 'Submitting...';
-			
-						const name = nameInput.value;
-						const email = emailInput.value;
-						const mobile = mobileInput.value;
-			
-						thankYouMessage.style.display = 'none';
-						errorMessage.style.display = 'none';
-			
-						emailjs.send("service_8vamjmf", "template_zejs2ig", {
-							name: name,
-							email: email, 
-							mobile: mobile,
-							to_email: "lntprojectsbangalore@gmail.com"  
-						}).then(
-							function(response) {
-								console.log("Email sent successfully", response);
-								thankYouMessage.style.display = 'block';
-								form.style.display = 'none';
-							},
-							function(error) {
-								console.error("Email failed to send", error);
-								errorMessage.style.display = 'block';
-								submitBtn.disabled = false;
-								submitBtn.innerHTML = 'Submit';
-							}
-						);
-					});
-				});
-			</script>
+
 			
 
 
@@ -1224,8 +1092,7 @@
 								<input name="is_te" type="hidden" value="">
 		
 								<input id="popupName" name="uname" required autocomplete="off" type="text" maxlength="60" pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
-								<input id="popupEmail" name="uemail" required autocomplete="off" type="email" maxlength="60" class="form-control" placeholder="Email">
-								<input id="popupMobile" name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$" class="form-control" placeholder="Mobile Number">
+ 								<input id="popupMobile" name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$" class="form-control" placeholder="Mobile Number">
 								
 								<div class="consent">
 									<div class="form-check">
@@ -1255,76 +1122,7 @@
 			</div>
 		</div>
 
-		<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-    (function() {
-        emailjs.init("xaUgbMOS5uDkHfqAC"); // Keep this secure by moving to backend if possible
-    })();
-
-	document.getElementById('enqPopup').addEventListener('shown.bs.modal', function () {
-    this.removeAttribute('aria-hidden');
-});
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const popupForm = document.getElementById('enqPopupForm');
-        const popupSubmitBtn = document.getElementById('enqPopupSubmit');
-        const popupNameInput = document.getElementById('popupName');
-        const popupEmailInput = document.getElementById('popupEmail');
-        const popupMobileInput = document.getElementById('popupMobile');
-        const popupConsentCheck = document.getElementById('consentCheck-enqPopup');
-        const popupThankYouMessage = document.getElementById('popupThankYouMessage');
-        const popupErrorMessage = document.getElementById('popupErrorMessage');
-
-        function checkPopupFormValidity() {
-            const nameValid = popupNameInput.value.trim() !== '' && /^[A-Za-z\s]+$/.test(popupNameInput.value);
-            const emailValid = popupEmailInput.value.trim() !== '' && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(popupEmailInput.value);
-            const mobileValid = popupMobileInput.value.trim() !== '' && /^\d{10}$/.test(popupMobileInput.value);
-            popupSubmitBtn.disabled = !(nameValid && emailValid && mobileValid && popupConsentCheck.checked);
-        }
-
-        // Attach input validation to fields
-        [popupNameInput, popupEmailInput, popupMobileInput, popupConsentCheck].forEach(input => {
-            input.addEventListener('input', checkPopupFormValidity);
-        });
-
-        // Run validation on load
-        checkPopupFormValidity();
-
-        popupForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            popupSubmitBtn.disabled = true;
-            popupSubmitBtn.innerHTML = 'Submitting...';
-
-            const name = popupNameInput.value;
-            const email = popupEmailInput.value;
-            const mobile = popupMobileInput.value;
-
-            popupThankYouMessage.style.display = 'none';
-            popupErrorMessage.style.display = 'none';
-
-            emailjs.send("service_8vamjmf", "template_zejs2ig", {
-                name: name,
-                email: email, 
-                mobile: mobile,
-                to_email: "lntprojectsbangalore@gmail.com"
-            }).then(
-                function(response) {
-                    console.log("Email sent successfully", response);
-                    popupThankYouMessage.style.display = 'block';
-                    popupForm.style.display = 'none';
-                },
-                function(error) {
-                    console.error("Email failed to send", error);
-                    popupErrorMessage.style.display = 'block';
-                    popupSubmitBtn.disabled = false;
-                    popupSubmitBtn.innerHTML = 'Submit';
-                }
-            );
-        });
-    });
-</script>
+ 
 
 		
 		<!-- Enquire Popup - E -->
