@@ -274,47 +274,61 @@
 		</section>
 		<!-- Banner Slider - E -->
 
-		<!-- Sidebar - S -->
 		<sidebar class="shadow">
 			<div class="og-wrapper ">
 				<div class="og-links">
-					<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#enqPopup" data-form-name="Organize Site Visit">Organize Site Visit</a>
+					<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#enqPopup"
+						data-form-name="Organize Site Visit">Organize Site Visit</a>
 					<a href="tel:+917337879621">
 						<i class="ri-phone-fill"></i>
 						+91 73378 79261</a>
 				</div>
 				<div class="og-open-links">
-					<button class="btn btn-dark btn-cta" data-bs-toggle="modal" data-bs-target="#enqPopup" data-form-name="Request Call Back">Request Call Back</button>
+					<button class="btn btn-dark btn-cta" data-bs-toggle="modal" data-bs-target="#enqPopup"
+						data-form-name="Request Call Back">
+						Request Call Back
+					</button>
 					<a href="https://api.whatsapp.com/send?phone=917337879621&amp;text=Hi%21+I%27m+Interested+In+./l&t+NEW+LAUNCH+AT+RAINTREE+BOULEVARD+by+./l&t+Realty+Hebbal%2C+North+Bangalore.+Please+Share+Details."
 						target="_blank" class="btn btn-wp-icon">
 						<i class="ri-whatsapp-line"></i>
+						<!-- <i class="fa-brands fa-whatsapp"></i> -->
 					</a>
 				</div>
 			</div>
-		
+
 			<h5 class="section-heading mt-4">Enquire Now</h5>
-			<form id="sidebarEnqForm" method="post" class="enq-form js-email-form">
+			<form action="" method="post" class="enq-form js-email-form">
 				<input name="form_name" id="form-name" type="hidden" value="LP Open Form">
 				<input name="is_te" type="hidden" value="">
-				<input id="sidebarName" name="uname" required autocomplete="off" type="text" maxlength="60" pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
-				<input id="sidebarMobile" name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$" class="form-control" placeholder="Mobile Number">
-				
+				<input id="enqNameField1" name="uname" required autocomplete="off" type="text" maxlength="60"
+					pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
+				<div class="invalid-feedback" id="nameError"></div>
+				<input name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$" class="form-control"
+					placeholder="Mobile Number">
+				<div class="invalid-feedback" id="phoneError"></div>
 				<div class="consent">
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" checked required id="consentCheck-sidebar">
-						<label class="form-check-label" for="consentCheck-sidebar">
-							I Consent to The Processing of Provided Data According To 
-							<a href="privacy-policy.html" target="_self">Privacy Policy | Terms & Conditions</a>.
-						</label>
+						<label class="form-check-label" for="consentCheck-sidebar">I Consent to The Processing of
+							Provided Data According To <a href="privacy-policy.html" target="_self">Privacy Policy |
+								Terms & Conditions</a>, I Authorize Propertypistol Realty Private Limited and its
+							representatives to Call, SMS, Email or WhatsApp Me About Its Products and Offers. This
+							Consent Overrides Any Registration For DNC/NDNC.</label>
 					</div>
 				</div>
-		
 				<div class="btn-wrapper">
-					<button type="submit" name="fenqbtn" id="sidebarEnqSubmit" class="btn btn-dark btn-cta">Submit</button>
+					<button disabled type="submit" name="fenqbtn" id="enqPopupSumit"
+						class="btn btn-dark btn-cta">Submit</button>
 				</div>
 			</form>
-		 
+
+			<!-- <img class="lazyload w-100 p-3 pnd-img "
+				src="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/ip.png"
+				data-src="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/pnd.webp"
+				alt=""> -->
+
 		</sidebar>
+		<!-- Sidebar - E -->
 		
 		 
 		
@@ -1073,6 +1087,10 @@
 			</a>
 		</div>
 		<!-- Mobile Footer CTA - E --> <!-- Enquire Popup - S -->
+		
+		
+
+ 
 		<div class="modal fade enqPopup" id="enqPopup" tabindex="-1" aria-labelledby="enqPopupLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
@@ -1081,49 +1099,67 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body p-0">
+
 						<div class="enq-form-layout">
+
 							<ul class="enq-popup-cp-highlights">
 								<li class="heading">We Promise</li>
-								<li><i class="ri-customer-service-2-line"></i><span> <b>Instant</b> Call Back </span></li>
+								<li><i class="ri-customer-service-2-line"></i><span> <b>Instant</b> Call Back </span>
+								</li>
 							</ul>
-		
-							<form id="enqPopupForm" method="post" class="enq-form js-email-form">
+
+							<form action="" method="post" class="enq-form js-email-form">
 								<input name="form_name" id="form-name" type="hidden" value="Auto Popup">
 								<input name="is_te" type="hidden" value="">
-		
-								<input id="popupName" name="uname" required autocomplete="off" type="text" maxlength="60" pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
- 								<input id="popupMobile" name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$" class="form-control" placeholder="Mobile Number">
-								
+								<input name="uname" required autocomplete="off" type="text" maxlength="60"
+									pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
+								<input name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$"
+									class="form-control" placeholder="Mobile Number">
 								<div class="consent">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" checked required id="consentCheck-enqPopup">
-										<label class="form-check-label" for="consentCheck-enqPopup">
-											I Consent to The Processing of Provided Data According To 
-											<a href="privacy-policy.html" target="_self">Privacy Policy | Terms & Conditions</a>.
-										</label>
+										<input class="form-check-input" type="checkbox" checked required
+											id="consentCheck-enqPopup">
+										<label class="form-check-label" for="consentCheck-enqPopup">I Consent to The
+											Processing of Provided Data According To <a href="privacy-policy.html"
+												target="_self">Privacy Policy | Terms & Conditions</a>, I Authorize
+											Propertypistol Realty Private Limited and its representatives to Call, SMS,
+											Email or WhatsApp Me About Its Products and Offers. This Consent Overrides
+											Any Registration For DNC/NDNC.</label>
 									</div>
 								</div>
-		
 								<div class="btn-wrapper">
-									<button type="submit" name="fenqbtn" id="enqPopupSubmit" class="btn btn-dark btn-cta">Submit</button>
+									<button disabled type="submit" name="fenqbtn" id="enqPopupSumit"
+										class="btn btn-dark btn-cta">Submit</button>
 								</div>
 							</form>
-		
-							<div id="popupThankYouMessage" class="alert alert-success" style="display: none;">
-								<h4>Thank you for your enquiry!</h4>
-							</div>
-							<div id="popupErrorMessage" class="alert alert-danger" style="display: none;">
-								<h4>Submission Error</h4>
-								<p>There was a problem processing your request. Please try again later.</p>
+
+						</div>
+
+						<div class="enq-popup-pj-highlights" id="enq-popup-pj-highlights-normal">
+							<h5>Get information on availabilities</h5>
+							<div
+								class="row row-cols-2 row-cols-md-3 g-2 pt-2 pb-3 align-content-center justify-content-center">
+								<div class="col"><i class="ri-shield-check-line"></i> Available units</div>
+								<div class="col"><i class="ri-shield-check-line"></i> Payment plan</div>
+								<div class="col"><i class="ri-shield-check-line"></i> Floor plans</div>
 							</div>
 						</div>
+
+						<div class="enq-popup-pj-highlights align-content-center justify-content-center d-none"
+							id="enq-popup-pj-highlights-brochure">
+							<h5>Descriptive brochure</h5>
+							<div class="row row-cols-2 row-cols-md-4 g-2 pt-2 pb-3">
+								<div class="col"><i class="ri-shield-check-line"></i> Lifestyle</div>
+								<div class="col"><i class="ri-shield-check-line"></i> Masterplan</div>
+								<div class="col"><i class="ri-shield-check-line"></i> Gallery</div>
+								<div class="col"><i class="ri-shield-check-line"></i> Floor plans</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
-
- 
-
 		
 		<!-- Enquire Popup - E -->
 
