@@ -52,7 +52,7 @@
 		integrity="sha256-pDrSUa13vOne5uuB/pSUdT2vNTXsq1i4vtm/xpqJX9w=" crossorigin="anonymous"></script>
 	<!-- <script defer src="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/js/app.js"></script> -->
 	<script src="./js/app.js"></script>
-
+ 
 	<!-- Styles -->
 	<style>
 		:root {
@@ -276,57 +276,116 @@
 		<sidebar class="shadow">
 			<div class="og-wrapper ">
 				<div class="og-links">
-					<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#enqPopup"
-						data-form-name="Organize Site Visit">Organize Site Visit</a>
+					<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#enqPopup" data-form-name="Organize Site Visit">Organize Site Visit</a>
 					<a href="tel:+917337879621">
 						<i class="ri-phone-fill"></i>
 						+91 73378 79261</a>
 				</div>
 				<div class="og-open-links">
-					<button class="btn btn-dark btn-cta" data-bs-toggle="modal" data-bs-target="#enqPopup"
-						data-form-name="Request Call Back">
-						Request Call Back
-					</button>
+					<button class="btn btn-dark btn-cta" data-bs-toggle="modal" data-bs-target="#enqPopup" data-form-name="Request Call Back">Request Call Back</button>
 					<a href="https://api.whatsapp.com/send?phone=917337879621&amp;text=Hi%21+I%27m+Interested+In+./l&t+NEW+LAUNCH+AT+RAINTREE+BOULEVARD+by+./l&t+Realty+Hebbal%2C+North+Bangalore.+Please+Share+Details."
 						target="_blank" class="btn btn-wp-icon">
 						<i class="ri-whatsapp-line"></i>
-						<!-- <i class="fa-brands fa-whatsapp"></i> -->
 					</a>
 				</div>
 			</div>
-
+		
 			<h5 class="section-heading mt-4">Enquire Now</h5>
-			<form action="" method="post" class="enq-form js-email-form">
+			<form id="sidebarEnqForm" method="post" class="enq-form js-email-form">
 				<input name="form_name" id="form-name" type="hidden" value="LP Open Form">
 				<input name="is_te" type="hidden" value="">
-				<input id="enqNameField1" name="uname" required autocomplete="off" type="text" maxlength="60"
-					pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
-				<div class="invalid-feedback" id="nameError"></div>
-				<input name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$" class="form-control"
-					placeholder="Mobile Number">
-				<div class="invalid-feedback" id="phoneError"></div>
+				<input id="sidebarName" name="uname" required autocomplete="off" type="text" maxlength="60" pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
+				<input id="sidebarEmail" name="uemail" required autocomplete="off" type="email" maxlength="60" class="form-control" placeholder="Email">
+				<input id="sidebarMobile" name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$" class="form-control" placeholder="Mobile Number">
+				
 				<div class="consent">
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" checked required id="consentCheck-sidebar">
-						<label class="form-check-label" for="consentCheck-sidebar">I Consent to The Processing of
-							Provided Data According To <a href="privacy-policy.html" target="_self">Privacy Policy |
-								Terms & Conditions</a>, I Authorize Propertypistol Realty Private Limited and its
-							representatives to Call, SMS, Email or WhatsApp Me About Its Products and Offers. This
-							Consent Overrides Any Registration For DNC/NDNC.</label>
+						<label class="form-check-label" for="consentCheck-sidebar">
+							I Consent to The Processing of Provided Data According To 
+							<a href="privacy-policy.html" target="_self">Privacy Policy | Terms & Conditions</a>.
+						</label>
 					</div>
 				</div>
+		
 				<div class="btn-wrapper">
-					<button disabled type="submit" name="fenqbtn" id="enqPopupSumit"
-						class="btn btn-dark btn-cta">Submit</button>
+					<button type="submit" name="fenqbtn" id="sidebarEnqSubmit" class="btn btn-dark btn-cta">Submit</button>
 				</div>
 			</form>
-
-			<!-- <img class="lazyload w-100 p-3 pnd-img "
-				src="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/ip.png"
-				data-src="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/pnd.webp"
-				alt=""> -->
-
+		
+			<div id="sidebarThankYouMessage" class="alert alert-success" style="display: none;">
+				<h4>Thank you for your enquiry!</h4>
+			</div>
+			<div id="sidebarErrorMessage" class="alert alert-danger" style="display: none;">
+				<h4>Submission Error</h4>
+				<p>There was a problem processing your request. Please try again later.</p>
+			</div>
 		</sidebar>
+		
+		<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+		<script>
+			(function() {
+				emailjs.init("xaUgbMOS5uDkHfqAC");
+			})();
+		
+			document.addEventListener('DOMContentLoaded', function() {
+				const sidebarForm = document.getElementById('sidebarEnqForm');
+				const sidebarSubmitBtn = document.getElementById('sidebarEnqSubmit');
+				const sidebarNameInput = document.getElementById('sidebarName');
+				const sidebarEmailInput = document.getElementById('sidebarEmail');
+				const sidebarMobileInput = document.getElementById('sidebarMobile');
+				const sidebarConsentCheck = document.getElementById('consentCheck-sidebar');
+				const sidebarThankYouMessage = document.getElementById('sidebarThankYouMessage');
+				const sidebarErrorMessage = document.getElementById('sidebarErrorMessage');
+		
+				function checkSidebarFormValidity() {
+					const nameValid = sidebarNameInput.value.trim() !== '' && /^[A-Za-z\s]+$/.test(sidebarNameInput.value);
+					const emailValid = sidebarEmailInput.value.trim() !== '' && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(sidebarEmailInput.value);
+					const mobileValid = sidebarMobileInput.value.trim() !== '' && /^\d{10}$/.test(sidebarMobileInput.value);
+					sidebarSubmitBtn.disabled = !(nameValid && emailValid && mobileValid && sidebarConsentCheck.checked);
+				}
+		
+				[sidebarNameInput, sidebarEmailInput, sidebarMobileInput, sidebarConsentCheck].forEach(input => {
+					input.addEventListener('input', checkSidebarFormValidity);
+				});
+		
+				checkSidebarFormValidity();
+		
+				sidebarForm.addEventListener('submit', function(event) {
+					event.preventDefault();
+		
+					sidebarSubmitBtn.disabled = true;
+					sidebarSubmitBtn.innerHTML = 'Submitting...';
+		
+					const name = sidebarNameInput.value;
+					const email = sidebarEmailInput.value;
+					const mobile = sidebarMobileInput.value;
+		
+					sidebarThankYouMessage.style.display = 'none';
+					sidebarErrorMessage.style.display = 'none';
+		
+					emailjs.send("service_8vamjmf", "template_zejs2ig", {
+						name: name,
+						email: email, 
+						mobile: mobile,
+						to_email: "lntprojectsbangalore@gmail.com"
+					}).then(
+						function(response) {
+							console.log("Email sent successfully", response);
+							sidebarThankYouMessage.style.display = 'block';
+							sidebarForm.style.display = 'none';
+						},
+						function(error) {
+							console.error("Email failed to send", error);
+							sidebarErrorMessage.style.display = 'block';
+							sidebarSubmitBtn.disabled = false;
+							sidebarSubmitBtn.innerHTML = 'Submit';
+						}
+					);
+				});
+			});
+		</script>
+		
 		<!-- Sidebar - E -->
 
 
@@ -995,16 +1054,13 @@
 
 
 
-
-			<!-- Site Visit - S -->
+<!--Schedule a visit sections-->
 			<section class="light site-visit" id="site-visit">
 				<h3 class="section-heading text-center w-100">Schedule a Site Visit</h3>
-
+			
 				<div class="row row-cols-1 row-cols-md-2 align-content-center">
 					<div class="col justify-content-center align-content-center">
 						<div class="bd-img">
-
-
 							<picture>
 								<source
 									data-srcset="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/sv.webp"
@@ -1014,42 +1070,120 @@
 									data-srcset="https://s3.ap-south-1.amazonaws.com/microsites.images/temp_assets/temp-xi/img/sv.jpg"
 									alt="">
 							</picture>
-
 						</div>
 					</div>
-
+			
 					<div class="col pt-5">
-						<form action="" method="post" class="enq-form js-email-form">
-							<input name="form_name" id="form-name" type="hidden" value="Open Site Visit Form">
+						<div id="thankYouMessage" style="display: none;" class="alert alert-success">
+							<h4>Thank you for scheduling a site visit!</h4>
+						</div>
+						<div id="errorMessage" style="display: none;" class="alert alert-danger">
+							<h4>Submission Error</h4>
+							<p>There was a problem processing your request. Please try again later or contact us directly.</p>
+						</div>
+			
+						<form id="siteVisitForm" method="post" class="enq-form js-email-form">
+							<input name="form_name" type="hidden" value="Open Site Visit Form">
 							<input name="is_te" type="hidden" value="">
-							<input name="uname" required autocomplete="off" type="text" maxlength="60"
+			
+							<input id="uname" name="uname" required autocomplete="off" type="text" maxlength="60"
 								pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
-							<input name="uemail" required autocomplete="off" type="email" maxlength="60"
-								pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" class="form-control"
-								placeholder="Email">
-							<input name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$"
+			
+							<input id="uemail" name="uemail" required autocomplete="off" type="email" maxlength="60"
+								class="form-control" placeholder="Email">
+			
+							<input id="umobile" name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$"
 								class="form-control" placeholder="Mobile Number">
+			
 							<div class="consent">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" checked required
-										id="consentCheck-siteVisit">
-									<label class="form-check-label" for="consentCheck-siteVisit">I Consent to The
-										Processing of Provided Data According To <a href="privacy-policy.html"
-											target="_self">Privacy Policy | Terms & Conditions</a>, I Authorize
-										Propertypistol Realty Private Limited and its representatives to Call, SMS,
+									<input class="form-check-input" type="checkbox" checked required id="consentCheck-siteVisit">
+									<label class="form-check-label" for="consentCheck-siteVisit">
+										I Consent to The Processing of Provided Data According To 
+										<a href="privacy-policy.html" target="_blank">Privacy Policy | Terms & Conditions</a>. 
+										I Authorize Propertypistol Realty Private Limited and its representatives to Call, SMS,
 										Email or WhatsApp Me About Its Products and Offers. This Consent Overrides Any
-										Registration For DNC/NDNC.</label>
+										Registration For DNC/NDNC.
+									</label>
 								</div>
 							</div>
+			
 							<div class="btn-wrapper">
-								<button disabled type="submit" name="fenqbtn" id="enqPopupSumit"
-									class="btn btn-dark btn-cta">Submit</button>
+								<button type="submit" name="fenqbtn" id="enqPopupSubmit" class="btn btn-dark btn-cta" disabled>
+									Submit
+								</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</section>
-			<!-- Site Visit - E -->
+			
+			<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+			<script>
+				(function() {
+					emailjs.init("xaUgbMOS5uDkHfqAC"); // Consider moving this key to backend for security.
+				})();
+			
+				document.addEventListener('DOMContentLoaded', function() {
+					const form = document.getElementById('siteVisitForm');
+					const submitBtn = document.getElementById('enqPopupSubmit');
+					const nameInput = document.getElementById('uname');
+					const emailInput = document.getElementById('uemail');
+					const mobileInput = document.getElementById('umobile');
+					const consentCheck = document.getElementById('consentCheck-siteVisit');
+					const thankYouMessage = document.getElementById('thankYouMessage');
+					const errorMessage = document.getElementById('errorMessage');
+			
+					function checkFormValidity() {
+						const nameValid = nameInput.value.trim() !== '' && /^[A-Za-z\s]+$/.test(nameInput.value);
+						const emailValid = emailInput.value.trim() !== '' && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailInput.value);
+						const mobileValid = mobileInput.value.trim() !== '' && /^\d{10}$/.test(mobileInput.value);
+						submitBtn.disabled = !(nameValid && emailValid && mobileValid && consentCheck.checked);
+					}
+			
+					// Run validation when input changes
+					[nameInput, emailInput, mobileInput, consentCheck].forEach(input => {
+						input.addEventListener('input', checkFormValidity);
+					});
+			
+					// Ensure button is enabled or disabled on page load
+					checkFormValidity();
+			
+					form.addEventListener('submit', function(event) {
+						event.preventDefault();
+			
+						submitBtn.disabled = true;
+						submitBtn.innerHTML = 'Submitting...';
+			
+						const name = nameInput.value;
+						const email = emailInput.value;
+						const mobile = mobileInput.value;
+			
+						thankYouMessage.style.display = 'none';
+						errorMessage.style.display = 'none';
+			
+						emailjs.send("service_8vamjmf", "template_zejs2ig", {
+							name: name,
+							email: email, 
+							mobile: mobile,
+							to_email: "lntprojectsbangalore@gmail.com"  
+						}).then(
+							function(response) {
+								console.log("Email sent successfully", response);
+								thankYouMessage.style.display = 'block';
+								form.style.display = 'none';
+							},
+							function(error) {
+								console.error("Email failed to send", error);
+								errorMessage.style.display = 'block';
+								submitBtn.disabled = false;
+								submitBtn.innerHTML = 'Submit';
+							}
+						);
+					});
+				});
+			</script>
+			
 
 
 		</main>
@@ -1079,67 +1213,120 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body p-0">
-
 						<div class="enq-form-layout">
-
 							<ul class="enq-popup-cp-highlights">
 								<li class="heading">We Promise</li>
-								<li><i class="ri-customer-service-2-line"></i><span> <b>Instant</b> Call Back </span>
-								</li>
+								<li><i class="ri-customer-service-2-line"></i><span> <b>Instant</b> Call Back </span></li>
 							</ul>
-
-							<form action="" method="post" class="enq-form js-email-form">
+		
+							<form id="enqPopupForm" method="post" class="enq-form js-email-form">
 								<input name="form_name" id="form-name" type="hidden" value="Auto Popup">
 								<input name="is_te" type="hidden" value="">
-								<input name="uname" required autocomplete="off" type="text" maxlength="60"
-									pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
-								<input name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$"
-									class="form-control" placeholder="Mobile Number">
+		
+								<input id="popupName" name="uname" required autocomplete="off" type="text" maxlength="60" pattern="[A-Za-z\s]+" class="form-control" placeholder="Name">
+								<input id="popupEmail" name="uemail" required autocomplete="off" type="email" maxlength="60" class="form-control" placeholder="Email">
+								<input id="popupMobile" name="umobile" required autocomplete="off" type="tel" pattern="^\d{10}$" class="form-control" placeholder="Mobile Number">
+								
 								<div class="consent">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" checked required
-											id="consentCheck-enqPopup">
-										<label class="form-check-label" for="consentCheck-enqPopup">I Consent to The
-											Processing of Provided Data According To <a href="privacy-policy.html"
-												target="_self">Privacy Policy | Terms & Conditions</a>, I Authorize
-											Propertypistol Realty Private Limited and its representatives to Call, SMS,
-											Email or WhatsApp Me About Its Products and Offers. This Consent Overrides
-											Any Registration For DNC/NDNC.</label>
+										<input class="form-check-input" type="checkbox" checked required id="consentCheck-enqPopup">
+										<label class="form-check-label" for="consentCheck-enqPopup">
+											I Consent to The Processing of Provided Data According To 
+											<a href="privacy-policy.html" target="_self">Privacy Policy | Terms & Conditions</a>.
+										</label>
 									</div>
 								</div>
+		
 								<div class="btn-wrapper">
-									<button disabled type="submit" name="fenqbtn" id="enqPopupSumit"
-										class="btn btn-dark btn-cta">Submit</button>
+									<button type="submit" name="fenqbtn" id="enqPopupSubmit" class="btn btn-dark btn-cta">Submit</button>
 								</div>
 							</form>
-
-						</div>
-
-						<div class="enq-popup-pj-highlights" id="enq-popup-pj-highlights-normal">
-							<h5>Get information on availabilities</h5>
-							<div
-								class="row row-cols-2 row-cols-md-3 g-2 pt-2 pb-3 align-content-center justify-content-center">
-								<div class="col"><i class="ri-shield-check-line"></i> Available units</div>
-								<div class="col"><i class="ri-shield-check-line"></i> Payment plan</div>
-								<div class="col"><i class="ri-shield-check-line"></i> Floor plans</div>
+		
+							<div id="popupThankYouMessage" class="alert alert-success" style="display: none;">
+								<h4>Thank you for your enquiry!</h4>
+							</div>
+							<div id="popupErrorMessage" class="alert alert-danger" style="display: none;">
+								<h4>Submission Error</h4>
+								<p>There was a problem processing your request. Please try again later.</p>
 							</div>
 						</div>
-
-						<div class="enq-popup-pj-highlights align-content-center justify-content-center d-none"
-							id="enq-popup-pj-highlights-brochure">
-							<h5>Descriptive brochure</h5>
-							<div class="row row-cols-2 row-cols-md-4 g-2 pt-2 pb-3">
-								<div class="col"><i class="ri-shield-check-line"></i> Lifestyle</div>
-								<div class="col"><i class="ri-shield-check-line"></i> Masterplan</div>
-								<div class="col"><i class="ri-shield-check-line"></i> Gallery</div>
-								<div class="col"><i class="ri-shield-check-line"></i> Floor plans</div>
-							</div>
-						</div>
-
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    (function() {
+        emailjs.init("xaUgbMOS5uDkHfqAC"); // Keep this secure by moving to backend if possible
+    })();
+
+	document.getElementById('enqPopup').addEventListener('shown.bs.modal', function () {
+    this.removeAttribute('aria-hidden');
+});
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const popupForm = document.getElementById('enqPopupForm');
+        const popupSubmitBtn = document.getElementById('enqPopupSubmit');
+        const popupNameInput = document.getElementById('popupName');
+        const popupEmailInput = document.getElementById('popupEmail');
+        const popupMobileInput = document.getElementById('popupMobile');
+        const popupConsentCheck = document.getElementById('consentCheck-enqPopup');
+        const popupThankYouMessage = document.getElementById('popupThankYouMessage');
+        const popupErrorMessage = document.getElementById('popupErrorMessage');
+
+        function checkPopupFormValidity() {
+            const nameValid = popupNameInput.value.trim() !== '' && /^[A-Za-z\s]+$/.test(popupNameInput.value);
+            const emailValid = popupEmailInput.value.trim() !== '' && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(popupEmailInput.value);
+            const mobileValid = popupMobileInput.value.trim() !== '' && /^\d{10}$/.test(popupMobileInput.value);
+            popupSubmitBtn.disabled = !(nameValid && emailValid && mobileValid && popupConsentCheck.checked);
+        }
+
+        // Attach input validation to fields
+        [popupNameInput, popupEmailInput, popupMobileInput, popupConsentCheck].forEach(input => {
+            input.addEventListener('input', checkPopupFormValidity);
+        });
+
+        // Run validation on load
+        checkPopupFormValidity();
+
+        popupForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            popupSubmitBtn.disabled = true;
+            popupSubmitBtn.innerHTML = 'Submitting...';
+
+            const name = popupNameInput.value;
+            const email = popupEmailInput.value;
+            const mobile = popupMobileInput.value;
+
+            popupThankYouMessage.style.display = 'none';
+            popupErrorMessage.style.display = 'none';
+
+            emailjs.send("service_8vamjmf", "template_zejs2ig", {
+                name: name,
+                email: email, 
+                mobile: mobile,
+                to_email: "lntprojectsbangalore@gmail.com"
+            }).then(
+                function(response) {
+                    console.log("Email sent successfully", response);
+                    popupThankYouMessage.style.display = 'block';
+                    popupForm.style.display = 'none';
+                },
+                function(error) {
+                    console.error("Email failed to send", error);
+                    popupErrorMessage.style.display = 'block';
+                    popupSubmitBtn.disabled = false;
+                    popupSubmitBtn.innerHTML = 'Submit';
+                }
+            );
+        });
+    });
+</script>
+
+		
 		<!-- Enquire Popup - E -->
 
 
